@@ -1,0 +1,63 @@
+﻿.darker-border-checkbox.form-check-input {
+    border-color: #929292;
+}
+
+.Register-container {
+    max-width: 400px; /* Limits the form width */
+    margin: 0 auto; /* Centers the form */
+    padding: 20px;
+}
+
+.Register-group {
+    margin-bottom: 15px; /* Adds space between fields */
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%; /* Makes input fields full width */
+    padding: 8px;
+    box-sizing: border-box; /* Prevents padding from adding to the total width */
+    border: 2px solid green; /* Full green border */
+    border-radius: 10px;
+    outline: none; /* Removes default focus outline */
+}
+
+    input:focus {
+        border-color: darkgreen; /* Darker green on focus */
+    }
+
+button.register-btn {
+    width: 100%; /* Full width button */
+    font-weight: bold;
+    padding: 15px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 22px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    button.register-btn:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+
+.Register-Title {
+    text-align:center;
+    font-weight:bold;
+}
+
+.Register-Description {
+    margin-top:20px;
+    text-align:center;
+    font-size:15px;
+}
+
+.Account-Text {
+    margin-bottom:20px;
+}

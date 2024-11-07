@@ -1,0 +1,65 @@
+﻿
+@page "/Register"
+@using RZA_Website.Models
+@using RZA_Website.Services
+@inject CustomerService CustomerService
+@rendermode InteractiveServer
+
+<h3 class="Register-Title">Register</h3>
+
+<h4 class="Register-Description">It only takes a few minutes and will save you time with your next booking!</h4>
+
+
+
+<div class="Register-container">
+    <div class="Register-group">
+        <label>First Name</label>
+        <input @bind=newCustomer.FirstName type="text" />
+    </div>
+
+    <div class="Register-group">
+        <label>Last Name</label>
+        <input @bind =newCustomer.LastName type="text" />
+    </div>
+
+    <div class="Register-group">
+        <label>Email Address</label>
+        <input @bind=newCustomer.Email type="email" />
+
+    </div>
+
+    <div class="Register-group">
+        <label>Username</label>
+        <input @bind=newCustomer.Username type="text" />
+    </div>
+
+    <div class="Register-group">
+        <label>Password</label>
+        <input @bind=newCustomer.Password type="password" />
+    </div>
+
+    <div class="Account-Text">
+        <h5>Already Have an account? <a href="/login">Sign in Here</a></h5>
+
+    </div>
+
+    <div class="Register-group">
+        <button type="submit" class="register-btn" @onclick=RegisterCustomer>Register</button>
+    </div>
+
+</div>
+
+
+
+
+@code {
+    private Customer newCustomer = new Customer();
+
+    private async Task RegisterCustomer()
+    {
+        await CustomerService.AddCustomerAsync(newCustomer);
+    }
+
+}
+
+

@@ -1,0 +1,132 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar Styles */
+.custom-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #70AD47; /* Navbar background color */
+    padding: 1em;
+}
+
+/* Navigation Links */
+.navbar {
+    display: flex;
+    list-style-type: none; /* Remove default list styling */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+}
+
+    .navbar li {
+        margin-left: 20px; /* Spacing between nav items */
+    }
+
+        .navbar li a {
+            text-decoration: none; /* Remove underline from links */
+            color: white; /* Link color */
+            padding: 10px 15px; /* Padding for links */
+            display: block; /* Makes the entire link area clickable */
+        }
+
+            .navbar li a:hover {
+                color:black;
+            }
+
+/* Right-side elements */
+.right-nav {
+    display: flex;
+    align-items: center; /* Vertically center the right-side elements */
+}
+
+.book-tickets {
+    background-color: #70AD47; /* Button background color */
+    color: white; /* Button text color */
+    border:1px solid; /* Remove border */
+    padding: 10px 10px 10px 10px; /* Button padding */
+    border-radius: 10px; /* Button rounded corners */
+    margin-right: 15px; /* Spacing to the right */
+    cursor: pointer; /* Cursor pointer on hover */
+}
+
+    .book-tickets:hover {
+        opacity:0.7;
+    }
+
+.icon {
+    margin-left: 10px; /* Spacing to the left of icons */
+    color: white; /* Icon color */
+    font-size: 24px; /* Icon size */
+}
+
+    .icon:hover {
+        color: #555; /* Icon color on hover */
+    }
+
+/* Logo Styles */
+.Logo {
+    color: white; /* Logo text color */
+    margin: 0; /* Remove margin */
+    text-decoration:none;
+}
+
+.Logo a {
+    color:none;
+}
+
+.Logo:hover {
+    color:none;
+}
+
+.darker-border-checkbox.form-check-input {
+    border-color: #929292;
+}
+
+.Register-container {
+    max-width: 400px; /* Limits the form width */
+    margin: 0 auto; /* Centers the form */
+    padding: 20px;
+}
+
+.Register-group {
+    margin-bottom: 15px; /* Adds space between fields */
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%; /* Makes input fields full width */
+    padding: 8px;
+    box-sizing: border-box; /* Prevents padding from adding to the total width */
+    border: 2px solid green; /* Full green border */
+    border-radius: 10px;
+    outline: none; /* Removes default focus outline */
+}
+
+    input:focus {
+        border-color: darkgreen; /* Darker green on focus */
+    }
+
+button.register-btn {
+    width: 100%; /* Full width button */
+    font-weight: bold;
+    padding: 15px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 22px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    button.register-btn:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+
+

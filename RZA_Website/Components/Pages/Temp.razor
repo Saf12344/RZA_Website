@@ -1,0 +1,42 @@
+﻿@page "/login"
+
+@using RZA_Website.Models
+@using RZA_Website.Services
+@inject CustomerService CustomerService
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<h3>Login</h3>
+
+<div class="Register-container">
+    <div class="Register-group">
+        <label>Username</label>
+        <input @bind=newCustomer.Username type="text" />
+    </div>
+
+    <div class="Register-group">
+        <label>Password</label>
+        <input @bind=newCustomer.Password type="password" />
+    </div>
+
+    <div class="Register-group">
+        <button type="submit" class="register-btn" @onclick=ValidLogIn>Log In</button>
+    </div>
+</div>
+
+@code {
+    private Customer newCustomer = new Customer();
+    private string password;
+
+    private async Task ValidLogIn()
+    {
+        newCustomer.Password = password;
+        newCustomer = await CustomerService.LogIn(newCustomer);
+        if (newCustomer == null)
+        {
+            Console.WriteLine("could not log in");
+
+        }
+    }
+
+}
