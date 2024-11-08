@@ -1,7 +1,26 @@
-﻿.animal {
-    display:flex;
-    width:400px;
-    height:400px;
+﻿.Page-Title {
     text-align:center;
-    background-color:blue;
+}
+
+.animal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    grid-template-rows: repeat(4, 1fr); /* 4 equal rows */
+    gap: 40px; /* Space between the boxes */
+    width: 100%;
+    max-width: 1500px; /* Set a max width for the grid container */
+    margin: auto; /* Center the grid */
+}
+
+.animal {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    text-align: center;
+    background-color: #70AD47;
+    height: 250px; /* Set a height for the boxes */
+    border: none;
+    font-size: 16px;
+    color:white;
+
 }
