@@ -4,62 +4,85 @@
 @using RZA_Website.Services
 @inject CustomerService CustomerService
 @rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@using RZA_Website.Utilities
+@inject UserSession UserSession
 
 <h3 class="Register-Title">Register</h3>
 
 <h4 class="Register-Description">It only takes a few minutes and will save you time with your next booking!</h4>
 
 
+<EditForm Model="newCustomer" OnValidSubmit="HandleValidSubmit" FormName="testForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-<div class="Register-container">
-    <div class="Register-group">
-        <label>First Name</label>
-        <input @bind=newCustomer.FirstName type="text" />
+    <div class="Register-container">
+        <div class="Register-group">
+            <label>First Name</label>
+            <InputText @bind-Value="newCustomer.FirstName" />
+        </div>
+
+        <div class="Register-group">
+            <label>Last Name</label>
+            <InputText @bind-Value="newCustomer.LastName" />
+        </div>
+
+        <div class="Register-group">
+            <label>Email Address</label>
+            <InputText @bind-Value="newCustomer.Email" />
+
+        </div>
+
+        <div class="Register-group">
+            <label>Username</label>
+            <InputText @bind-Value="newCustomer.Username" />
+        </div>
+
+        <div class="Register-group">
+            <label>Password</label>
+            <InputText @bind-Value="newCustomer.Password" type="password" />
+        </div>
+
+        <div class="Account-Text">
+            <h5>Already Have an account? <a href="/Login">Sign in Here</a></h5>
+
+        </div>
+
+        <div class="Register-group">
+            <button type="submit" class="register-btn">Register</button>
+        </div>
+
     </div>
-
-    <div class="Register-group">
-        <label>Last Name</label>
-        <input @bind =newCustomer.LastName type="text" />
-    </div>
-
-    <div class="Register-group">
-        <label>Email Address</label>
-        <input @bind=newCustomer.Email type="email" />
-
-    </div>
-
-    <div class="Register-group">
-        <label>Username</label>
-        <input @bind=newCustomer.Username type="text" />
-    </div>
-
-    <div class="Register-group">
-        <label>Password</label>
-        <input @bind=newCustomer.Password type="password" />
-    </div>
-
-    <div class="Account-Text">
-        <h5>Already Have an account? <a href="/login">Sign in Here</a></h5>
-
-    </div>
-
-    <div class="Register-group">
-        <button type="submit" class="register-btn" @onclick=RegisterCustomer>Register</button>
-    </div>
-
-</div>
-
+</EditForm>
 
 
 
 @code {
     private Customer newCustomer = new Customer();
+    private string password;
+    private string message;
 
-    private async Task RegisterCustomer()
+    protected override async Task OnInitializedAsync()
     {
-        await CustomerService.AddCustomerAsync(newCustomer);
+        if (UserSession.UserId != 0)
+        {
+            NavigationManager.NavigateTo("/account");
+        }
     }
 
-}
+    private async Task HandleValidSubmit()
+    {
 
+        // Hash the password using SHA256
+        newCustomer.Password = (newCustomer.Password);
+
+        // Insert the user into the database
+        await CustomerService.AddCustomerAsync(newCustomer);
+        newCustomer = new Customer();
+        password = "";
+        NavigationManager.NavigateTo("");
+
+    }
+}
 

@@ -50,6 +50,7 @@ body {
     border-radius: 10px; /* Button rounded corners */
     margin-right: 15px; /* Spacing to the right */
     cursor: pointer; /* Cursor pointer on hover */
+    text-decoration:none;
 }
 
     .book-tickets:hover {

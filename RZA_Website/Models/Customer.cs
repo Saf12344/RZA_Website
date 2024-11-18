@@ -24,4 +24,6 @@ public partial class Customer
     public DateOnly? DateOfBirth { get; set; }
 
     public int? LoyaltyPoints { get; set; }
+
+    public virtual ICollection<Ticketbooking> Ticketbookings { get; set; } = new List<Ticketbooking>();
 }

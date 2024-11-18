@@ -1,9 +1,38 @@
 ﻿@page "/Booking"
-<h3>Booking</h3>
-<p>Booking</p>
+<h1 class="Booking-Title">When Would You Like To Visit?</h1>
+
+<div class="booking-container">
+    <!-- Calendar Box -->
+    <div class="calendar-container">
+        <label for="visitDate">Select your visit date:</label>
+        <div class="input-container">
+            <input type="date" id="visitDate" name="visitDate" />
+        </div>
+    </div>
+
+    <!-- Visit Type Options -->
+    <div class="visit-options-container">
+        <h3>Choose Visit Type</h3>
+        <div class="visit-option">
+            <input type="radio" id="public" name="visitType" value="public" />
+            <label for="public">Public Visit</label>
+        </div>
+        <div class="visit-option">
+            <input type="radio" id="private" name="visitType" value="private" />
+            <label for="private">Private Visit</label>
+        </div>
+        <div class="visit-option">
+            <input type="radio" id="group" name="visitType" value="group" />
+            <label for="group">Group Visit</label>
+        </div>
+    </div>
+
+    <!-- Continue Button -->
+    <div class="continue-button-container">
+        <a href="/tickets" class="continue-button">Continue</a>
+    </div>
+</div>
 
 @code {
-
-
-
+    // Your C# logic can go here
 }
