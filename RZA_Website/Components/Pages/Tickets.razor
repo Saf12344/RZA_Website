@@ -1,9 +1,15 @@
-﻿﻿@using RZA_Website.Models
+﻿@using RZA_Website.Models
 @using RZA_Website.Services
+@using RZA_Website.Utilities
 @inject AttractionService AttractionService
+@inject UserSession UserSession
+@inject NavigationManager NavigationManager
+@inject TicketbookingService TicketbookingService
+@inject TicketService TicketService
 
-@page "/Tickets"
+@rendermode InteractiveServer
 
+@page "/tickets"
 
 <h3>Tickets</h3>
 
@@ -13,33 +19,72 @@
     {
         <div>
             @attraction.Name: £@attraction.Price
-            <button @onclick="@(e => AddTicket(attraction.AttractionId))">Add to Basket</button>
+            <button class="Basket-Button" @onclick="@(e => AddTicket(attraction.AttractionId))">Add to Basket</button>
         </div>
     }
-    <button>Book Tickets</button>
+    @* <input type="date" min=@DateTime.Now.ToString("yyyy-MM-dd") @bind=@ticketDate> *@
+    <div class="calendar-container">
+        <label for="visitDate">Select your visit date:</label>
+        <div class="input-container">
+            <input type="date" min=@DateTime.Today.ToString("yyyy-MM-dd") @bind=@ticketDate>
+        </div>
+    </div>
+    <button @onclick=@BookTickets>Book Tickets</button>
 }
 else
 {
     <div>no attractions</div>
 }
 
+@if (tickets != null && tickets.Count != 0)
+{
+    @foreach (Ticket ticket in tickets)
+    {
+        <div>@ticket.TicketId, @ticket.AttractionId</div>
+    }
+}
+else
+{
+    <div>Your tickets will show here...</div>
+}
+
 @code {
     List<Attraction> attractions;
     List<Ticket> tickets;
-
+    DateOnly ticketDate;
+    Ticketbooking newTicketbooking;
     protected override async Task OnInitializedAsync()
     {
-        attractions = await AttractionService.GetAttractionsAsync();
-        tickets = new List<Ticket>();
+        if (UserSession.UserId == 0)
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            attractions = await AttractionService.GetAttractionsAsync();
+            tickets = new List<Ticket>();
+            newTicketbooking = new Ticketbooking();
+        }
     }
     private void AddTicket(int attractionId)
     {
+        Console.WriteLine("AddTicket button was clicked");
         Ticket newTicket = new Ticket();
         newTicket.AttractionId = attractionId;
-        newTicket.Date = DateOnly.FromDateTime(DateTime.Now);
+        tickets.Add(newTicket);
     }
-    private void BookTickets()
+    private async Task BookTickets()
     {
-
+        //this one books all the tickets in the basket
+        Ticketbooking newTicketbooking = new Ticketbooking();
+        newTicketbooking.CustomerId = UserSession.UserId;
+        newTicketbooking.Date = ticketDate;
+        newTicketbooking.Date = DateOnly.FromDateTime(DateTime.Now);
+        await TicketbookingService.AddTicketbookingAsync(newTicketbooking);
+        foreach (Ticket ticket in tickets)
+        {
+            ticket.Ticketbooking = newTicketbooking;
+            await TicketService.AddTicketAsync(ticket);
+        }
     }
 }

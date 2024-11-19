@@ -1,42 +1,53 @@
 ﻿@page "/Login"
 
 @using RZA_Website.Models
+@using RZA_Website.Utilities
 @using RZA_Website.Services
 @inject CustomerService CustomerService
 @inject NavigationManager NavigationManager
+@inject UserSession UserSession
 @rendermode InteractiveServer
 
 <h3>Login</h3>
 
-<div class="Register-container">
-    <div class="Register-group">
-        <label>Username</label>
-        <input @bind=newCustomer.Username type="text" />
-    </div>
+<EditForm Model="newCustomer" OnValidSubmit="HandleValidSubmit" FormName="testForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-    <div class="Register-group">
-        <label>Password</label>
-        <input @bind=newCustomer.Password type="password" />
-    </div>
+    <div class="Register-container">
+        <div class="Register-group">
+            <label>Username</label>
+            <InputText @bind-Value="newCustomer.Username"/>
+        </div>
 
-    <div class="Register-group">
-        <button type="submit" class="register-btn" @onclick=ValidLogIn>Login</button>
+        <div class="Register-group">
+            <label>Password</label>
+            <InputText @bind-Value="password" type="password" />
+        </div>
+
+        <div class="Register-group">
+            <button type="submit" class="register-btn">Login</button>
+        </div>
     </div>
-</div>
+</EditForm>
 
 @code {
     private Customer newCustomer = new Customer();
     private string password;
 
-    private async Task ValidLogIn()
+
+    private async Task HandleValidSubmit()
     {
         newCustomer.Password = password;
         newCustomer = await CustomerService.LogIn(newCustomer);
         if (newCustomer == null)
         {
             Console.WriteLine("could not log in");
-
+        }
+        else
+        {
+            UserSession.UserId = newCustomer.CustomerId;
+            NavigationManager.NavigateTo("/Account");
         }
     }
-
 }

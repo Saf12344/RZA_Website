@@ -16,15 +16,19 @@ namespace RZA_Website
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-            builder.Services.AddDbContext<TlS2302050RzaContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("MySqlConnection"), new MySqlServerVersion(new Version(8, 0, 29))));
+            builder.Services.AddDbContext<TlS2302050RzaContext>(options =>
+                options.UseMySql(builder.Configuration.GetConnectionString("MySqlConnection"),
+                new MySqlServerVersion(new Version(8, 0, 29))));
 
             builder.Services.AddScoped<CustomerService>();
+            builder.Services.AddScoped<AttractionService>();
+            builder.Services.AddScoped<TicketService>();
+            builder.Services.AddScoped<TicketbookingService>();
 
             builder.Services.AddSingleton<UserSession>();
 
 
             var app = builder.Build();
-
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
